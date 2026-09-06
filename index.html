@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD. SHAKIL AHMED | Creative Designer & Project Building</title>
+    <meta name="description" content="Portfolio of MD. Shakil Ahmed - Creative Designer & Project Building with 6+ years of experience in web design, marketing, project building, and digital solutions.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Oswald:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #e50914;
+            --accent-crimson: #b30f1c;
+            --dark-crimson: rgba(180, 15, 25, 0.25);
+            --card-bg: rgba(12, 12, 14, 0.55);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-border-hover: rgba(229, 9, 20, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #9c9ca3;
+            --text-dim: #6c6c74;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            width: 100%;
+            background-color: #060608;
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fixed Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Subtle Ambient Dark Vignette for Readability */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 65% 35%, rgba(0, 0, 0, 0.1) 0%, rgba(6, 6, 8, 0.65) 65%, rgba(6, 6, 8, 0.92) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Minimal Loading Pill */
+        #loader {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(10, 10, 12, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            padding: 7px 15px;
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            z-index: 999;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #loader .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-red);
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Main Page Content Layer */
+        .content-layer {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* Top Header Bar */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 0 20px 0;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .brand-title::after {
+            content: "";
+            display: inline-block;
+            width: 32px;
+            height: 2px;
+            background: var(--primary-red);
+        }
+
+        .avail-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #b0b0b8;
+        }
+
+        .avail-badge::after {
+            content: "";
+            width: 7px;
+            height: 7px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-red);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 90vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 0 60px 0;
+        }
+
+        /* Massive Background Typography */
+        .bg-watermark {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(90px, 19vw, 250px);
+            color: rgba(160, 15, 25, 0.28);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            user-select: none;
+            z-index: -1;
+            pointer-events: none;
+            line-height: 0.9;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+        }
+
+        .hero-intro {
+            max-width: 580px;
+        }
+
+        .script-greeting {
+            font-family: 'Caveat', cursive;
+            font-size: 38px;
+            color: var(--primary-red);
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .hero-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(48px, 6vw, 76px);
+            font-weight: 800;
+            line-height: 0.95;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .hero-role {
+            color: var(--primary-red);
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .hero-subrole {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: #d1d1d8;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .hero-bio {
+            color: #a8a8b2;
+            font-size: 15px;
+            line-height: 1.65;
+            margin-bottom: 30px;
+            max-width: 460px;
+        }
+
+        .location-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #92929e;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .location-tag svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--primary-red);
+        }
+
+        /* Hero Right Side Highlights */
+        .hero-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+            justify-self: end;
+            max-width: 320px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(229, 9, 20, 0.4);
+            background: rgba(229, 9, 20, 0.08);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-red);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover .stat-icon {
+            border-color: var(--primary-red);
+            background: rgba(229, 9, 20, 0.2);
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.35);
+        }
+
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #8c8c96;
+            margin-bottom: 2px;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        /* Section Headings */
+        .section-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 14px;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .view-all-link {
+            color: var(--primary-red);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s ease;
+        }
+
+        .view-all-link:hover {
+            gap: 8px;
+        }
+
+        /* Selected Projects Section */
+        .projects-section {
+            padding: 90px 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(14px);
+            transition: all 0.35s cubic-bezier(0.2, 0, 0, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            border-color: var(--card-border-hover);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 20px rgba(229, 9, 20, 0.15);
+        }
+
+        .project-num {
+            color: var(--primary-red);
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .project-img-wrapper {
+            width: 100%;
+            height: 200px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #111;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .project-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .project-category {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #8c8c98;
+            text-transform: uppercase;
+        }
+
+        /* Info Grid Section (Education, Work Process, Quote) */
+        .info-grid-section {
+            padding: 80px 0;
+        }
+
+        .info-columns {
+            display: grid;
+            grid-template-columns: 1.05fr 1.15fr 0.9fr;
+            gap: 32px;
+            align-items: stretch;
+        }
+
+        /* Column 1: Education & Skills */
+        .education-block {
+            margin-bottom: 34px;
+        }
+
+        .sub-heading-red {
+            color: var(--primary-red);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .edu-item {
+            margin-bottom: 18px;
+        }
+
+        .edu-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #f0f0f4;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edu-bullet {
+            width: 5px;
+            height: 5px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .edu-institute {
+            font-size: 13px;
+            color: #9c9ca6;
+            padding-left: 14px;
+        }
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-chip {
+            background: rgba(22, 22, 26, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #e0e0e6;
+            transition: all 0.25s ease;
+        }
+
+        .skill-chip:hover {
+            border-color: var(--primary-red);
+            color: #ffffff;
+            background: rgba(229, 9, 20, 0.15);
+        }
+
+        /* Column 2: Work Process Timeline */
+        .process-list {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            position: relative;
+        }
+
+        .process-list::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 17px;
+            width: 1px;
+            border-left: 1px dashed rgba(229, 9, 20, 0.45);
+            z-index: 0;
+        }
+
+        .process-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-badge {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid var(--primary-red);
+            background: #08080a;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .process-info {
+            padding-top: 2px;
+        }
+
+        .process-title {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .process-desc {
+            font-size: 13px;
+            color: #a0a0aa;
+            line-height: 1.45;
+        }
+
+        /* Column 3: Testimonial Card */
+        .quote-card {
+            background: linear-gradient(145deg, rgba(140, 15, 25, 0.5) 0%, rgba(55, 6, 12, 0.65) 100%);
+            border: 1px solid rgba(229, 9, 20, 0.4);
+            border-radius: 12px;
+            padding: 40px 32px;
+            backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .quote-icon {
+            font-family: 'Anton', sans-serif;
+            font-size: 54px;
+            line-height: 1;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+        }
+
+        .quote-text {
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #ffffff;
+            margin-bottom: 36px;
+        }
+
+        .quote-author {
+            margin-top: auto;
+        }
+
+        .signature-font {
+            font-family: 'Caveat', cursive;
+            font-size: 36px;
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .author-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+
+        /* Footer / Contact Section */
+        .contact-section {
+            padding: 90px 0 120px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .contact-heading {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(38px, 5vw, 62px);
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            line-height: 1;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .contact-heading .red-dot {
+            color: var(--primary-red);
+        }
+
+        .contact-subtitle {
+            font-size: 15px;
+            color: #9c9ca6;
+            margin-bottom: 34px;
+            max-width: 440px;
+            line-height: 1.6;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 38px;
+        }
+
+        .contact-link-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #d1d1d8;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-link-item:hover {
+            color: #ffffff;
+        }
+
+        .contact-icon-box {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-red);
+        }
+
+        .contact-icon-box svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* CTA Badge */
+        .cta-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(18, 18, 22, 0.85);
+            border: 1px solid rgba(229, 9, 20, 0.4);
+            padding: 14px 22px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-box:hover {
+            background: rgba(229, 9, 20, 0.15);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 24px rgba(229, 9, 20, 0.3);
+        }
+
+        .cta-arrow {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--primary-red);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-red);
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-box:hover .cta-arrow {
+            transform: translate(2px, -2px);
+            background: var(--primary-red);
+            color: #ffffff;
+        }
+
+        .cta-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .contact-mockup-wrapper {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(12, 12, 14, 0.65);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(229, 9, 20, 0.15);
+        }
+
+        .contact-mockup-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                justify-self: start;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Background Video Frames Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Ambient Vignette Overlay for Readability -->
+    <div class="bg-overlay"></div>
+
+    <!-- Minimal Preload Indicator -->
+    <div id="loader">
+        <span class="dot"></span>
+        <span id="load-text">Loading 0%</span>
+    </div>
+
+    <!-- Foreground Transparent Content Layer -->
+    <div class="content-layer">
+        
+        <!-- Top Nav Header -->
+        <header class="top-header">
+            <div class="brand-title">CREATIVE PORTFOLIO</div>
+            <div class="avail-badge">AVAILABLE FOR PROJECTS</div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="bg-watermark">PORTFOLIO</div>
+            
+            <div class="hero-grid">
+                <!-- Left Intro -->
+                <div class="hero-intro">
+                    <div class="script-greeting">Hello, I'm</div>
+                    <h1 class="hero-name">MD. SHAKIL<br>AHMED</h1>
+                    <div class="hero-role">CREATIVE DESIGNER & PROJECT BUILDING</div>
+                    <p class="hero-bio">
+                        6+ years of experience in web design, marketing, project building, and digital solutions.
+                    </p>
+                    <div class="location-tag">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        BASED IN: DHAKA, BANGLADESH
+                    </div>
+                </div>
+
+                <!-- Right Highlights -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-text">
+                            <span class="stat-label">EXPERIENCE</span>
+                            <span class="stat-value">6+ YEARS</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <circle cx="12" cy="12" r="6"/>
+                                <circle cx="12" cy="12" r="2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-text">
+                            <span class="stat-label">SPECIALIZED IN</span>
+                            <span class="stat-value">WEB DESIGN<br>UI/UX DESIGN</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                            </svg>
+                        </div>
+                        <div class="stat-text">
+                            <span class="stat-label">AVAILABLE FOR</span>
+                            <span class="stat-value">PROJECT BUILDING<br>WEB DESIGNER</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-text">
+                            <span class="stat-label">WORKING</span>
+                            <span class="stat-value">WORLDWIDE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Projects Section -->
+        <section class="projects-section">
+            <div class="section-header-bar">
+                <h2 class="section-title">SELECTED PROJECTS</h2>
+                <a href="#projects" class="view-all-link">VIEW ALL PROJECTS &gt;</a>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 01 -->
+                <div class="project-card">
+                    <div class="project-num">01</div>
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="TechNexa website design">
+                    </div>
+                    <div class="project-title">TECHNEXA</div>
+                    <div class="project-category">WEBSITE DESIGN</div>
+                </div>
+
+                <!-- Project 02 -->
+                <div class="project-card">
+                    <div class="project-num">02</div>
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Urban Styles e-commerce design">
+                    </div>
+                    <div class="project-title">URBAN STYLES</div>
+                    <div class="project-category">E-COMMERCE DESIGN</div>
+                </div>
+
+                <!-- Project 03 -->
+                <div class="project-card">
+                    <div class="project-num">03</div>
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80" alt="Creative Studio UI/UX design">
+                    </div>
+                    <div class="project-title">CREATIVE STUDIO</div>
+                    <div class="project-category">UI/UX DESIGN</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3-Column Info Section -->
+        <section class="info-grid-section">
+            <div class="info-columns">
+                
+                <!-- Education & Skills -->
+                <div class="education-skills-col">
+                    <div class="section-header-bar">
+                        <h2 class="section-title">EDUCATION & SKILLS</h2>
+                    </div>
+
+                    <div class="education-block">
+                        <div class="sub-heading-red">EDUCATION</div>
+                        
+                        <div class="edu-item">
+                            <div class="edu-title"><span class="edu-bullet"></span> MBA in Management</div>
+                        </div>
+                    </div>
+
+                    <div class="skills-block">
+                        <div class="sub-heading-red">SKILLS</div>
+                        <div class="skills-wrap">
+                            <span class="skill-chip">WEB DESIGN</span>
+                            <span class="skill-chip">UI/UX DESIGN</span>
+                            <span class="skill-chip">WORDPRESS</span>
+                            <span class="skill-chip">ELEMENTOR</span>
+                            <span class="skill-chip">GRAPHIC DESIGN</span>
+                            <span class="skill-chip">HTML / CSS</span>
+                            <span class="skill-chip">JAVASCRIPT</span>
+                            <span class="skill-chip">SEO BASICS</span>
+                            <span class="skill-chip">DIGITAL MARKETING</span>
+                            <span class="skill-chip">BRAND IDENTITY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Process -->
+                <div class="work-process-col">
+                    <div class="section-header-bar">
+                        <h2 class="section-title">WORK PROCESS</h2>
+                    </div>
+
+                    <div class="process-list">
+                        <div class="process-item">
+                            <div class="process-badge">01</div>
+                            <div class="process-info">
+                                <div class="process-title">DISCOVER</div>
+                                <div class="process-desc">Understand client goals and requirements</div>
+                            </div>
+                        </div>
+
+                        <div class="process-item">
+                            <div class="process-badge">02</div>
+                            <div class="process-info">
+                                <div class="process-title">RESEARCH</div>
+                                <div class="process-desc">Analyze market, competitors and target audience</div>
+                            </div>
+                        </div>
+
+                        <div class="process-item">
+                            <div class="process-badge">03</div>
+                            <div class="process-info">
+                                <div class="process-title">STRATEGY</div>
+                                <div class="process-desc">Plan the best approach and creative direction</div>
+                            </div>
+                        </div>
+
+                        <div class="process-item">
+                            <div class="process-badge">04</div>
+                            <div class="process-info">
+                                <div class="process-title">DESIGN</div>
+                                <div class="process-desc">Create modern, user-focused visual solutions</div>
+                            </div>
+                        </div>
+
+                        <div class="process-item">
+                            <div class="process-badge">05</div>
+                            <div class="process-info">
+                                <div class="process-title">DELIVER</div>
+                                <div class="process-desc">Test, optimize and deliver the final product</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Quote -->
+                <div class="quote-card">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-text">
+                            Great design doesn't just look good — it communicates, connects and creates results.
+                        </p>
+                    </div>
+
+                    <div class="quote-author">
+                        <div class="signature-font">Shakil Ahmed</div>
+                        <div class="author-title">CEO, TechNexa</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="contact-grid">
+                
+                <div class="contact-details">
+                    <h2 class="contact-heading">LET'S WORK<br>TOGETHER <span class="red-dot">•</span></h2>
+                    <p class="contact-subtitle">
+                        I'm always open to new projects and exciting collaborations.
+                    </p>
+
+                    <div class="contact-links">
+                        <a href="https://shakii.vercel.app" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                            <div class="contact-icon-box">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                            </div>
+                            https://shakii.vercel.app
+                        </a>
+
+                        <a href="mailto:itshakil@outlook.com" class="contact-link-item">
+                            <div class="contact-icon-box">
+                                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                            </div>
+                            itshakil@outlook.com
+                        </a>
+
+                        <a href="https://github.com/yuda0x" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                            <div class="contact-icon-box">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            </div>
+                            https://github.com/yuda0x
+                        </a>
+
+                        <div class="contact-link-item">
+                            <div class="contact-icon-box">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            </div>
+                            Dhaka, Bangladesh
+                        </div>
+                    </div>
+
+                    <a href="mailto:itshakil@outlook.com" class="cta-box">
+                        <div class="cta-arrow">&#8599;</div>
+                        <div class="cta-text">LET'S CREATE<br>SOMETHING AMAZING</div>
+                    </a>
+                </div>
+
+                <div class="contact-mockup-wrapper">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=1200&q=80" alt="Creative workstation setup mockup">
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById("bg-canvas");
+        const ctx = canvas.getContext("2d");
+        const loader = document.getElementById("loader");
+        const loadText = document.getElementById("load-text");
+
+        const frameCount = 300;
+        const images = new Array(frameCount);
+        let loadedCount = 0;
+
+        // Smooth Physics Interpolation (Lerp)
+        let currentFrame = 0;
+        let targetFrame = 0;
+
+        // Path generator for ezgif-frame-001.jpg -> ezgif-frame-300.jpg
+        const getFramePath = index => {
+            const num = (index + 1).toString().padStart(3, '0');
+            return `ezgif-frame-${num}.jpg`;
+        };
+
+        // Resize Canvas dynamically to match screen and DPI
+        const resizeCanvas = () => {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            renderFrame(Math.round(currentFrame));
+        };
+
+        window.addEventListener("resize", resizeCanvas);
+
+        // Aspect Cover Rendering (Full viewport edge-to-edge, perfectly centered)
+        const drawImageCover = (image) => {
+            if (!image || !image.complete || !image.naturalWidth) return;
+
+            const cWidth = canvas.width;
+            const cHeight = canvas.height;
+            const iWidth = image.naturalWidth;
+            const iHeight = image.naturalHeight;
+
+            const scale = Math.max(cWidth / iWidth, cHeight / iHeight);
+            const drawWidth = iWidth * scale;
+            const drawHeight = iHeight * scale;
+            const offsetX = (cWidth - drawWidth) / 2;
+            const offsetY = (cHeight - drawHeight) / 2;
+
+            ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+        };
+
+        // Render Frame
+        const renderFrame = (index) => {
+            const safeIndex = Math.max(0, Math.min(frameCount - 1, index));
+            const img = images[safeIndex];
+            if (img && img.complete) {
+                drawImageCover(img);
+            }
+        };
+
+        // Continuous silky smooth animation loop
+        const animate = () => {
+            const delta = targetFrame - currentFrame;
+            if (Math.abs(delta) > 0.001) {
+                currentFrame += delta * 0.12;
+                renderFrame(Math.round(currentFrame));
+            }
+            requestAnimationFrame(animate);
+        };
+
+        // Map page scroll position to 300 video frames
+        const updateScroll = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = Math.max(0, Math.min(1, maxScroll > 0 ? scrollTop / maxScroll : 0));
+            targetFrame = scrollProgress * (frameCount - 1);
+        };
+
+        window.addEventListener("scroll", updateScroll, { passive: true });
+
+        // Preload all 300 frames
+        const preloadFrames = () => {
+            for (let i = 0; i < frameCount; i++) {
+                const img = new Image();
+                img.src = getFramePath(i);
+                img.onload = () => {
+                    loadedCount++;
+                    const percent = Math.round((loadedCount / frameCount) * 100);
+                    loadText.innerText = `Loading ${percent}%`;
+
+                    if (i === 0 && currentFrame === 0) {
+                        resizeCanvas();
+                    }
+
+                    if (loadedCount >= frameCount) {
+                        setTimeout(() => {
+                            loader.classList.add("hidden");
+                        }, 500);
+                    }
+                };
+                images[i] = img;
+            }
+        };
+
+        // Initialize
+        resizeCanvas();
+        preloadFrames();
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
